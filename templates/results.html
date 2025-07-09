@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Results</title>
+</head>
+<body>
+    <h1>Sentiment Results</h1>
+    <p><strong>Positive:</strong> {{ sentiment_counts['Positive'] }}</p>
+    <p><strong>Negative:</strong> {{ sentiment_counts['Negative'] }}</p>
+    <p><strong>Neutral:</strong> {{ sentiment_counts['Neutral'] }}</p>
+
+    <ul>
+        {% for sentiment in sentiments %}
+            <li>
+                {{ sentiment['text'] }} - {{ sentiment['sentiment'] }} {{ sentiment['emoji'] }}
+                <form action="/delete/{{ sentiment['_id'] }}" method="POST" style="display:inline;">
+                    <input type="submit" value="Delete">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form action="/clear" method="POST">
+        <input type="submit" value="Clear All">
+    </form>
+    <br>
+    <a href="/">Go Back</a>
+</body>
+</html>
